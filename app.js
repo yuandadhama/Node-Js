@@ -27,17 +27,26 @@ const rl = readLine.createInterface({
    input: process.stdin,
    output: process.stdout
 })
-const list = [''];
+const filePath = 'data/contact.json';
 
 rl.question('Masukkan nama anda: ', nama => {
-   rl.question('Masukkan umur anda: ', umur => {
-   try {
-      list.push(`"name": "${nama}", "umur": "${umur}"`,)
-      fs.writeFileSync('data/contact.json', `[{${list}}]`);
-      console.log(`Data ${list} sudah terinput`);
-   } catch (e) {
-      console.log(e);
-   }
-   rl.close();
-});
+   rl.question('Masukkan no HP anda: ', noHP => {
+      // menyimpan data menjadi sebuah object
+      const valueData = {nama, noHP,};
+
+      // membaca data di file JSON, file yang akan di isi
+      const fileToFill = fs.readFileSync(filePath, 'utf8');
+
+      // mengconvert file JSON string yang akan di isi menjadi object
+      const contacts = JSON.parse(fileToFill);
+
+      // mengisi contacts / fileToFill yang sudah di convert dengan valueData
+      contacts.push(valueData);
+      
+      // menuliskan hasil dari contacts yang sudah di isi menjadi JSON di filePath
+      fs.writeFileSync(filePath, JSON.stringify(contacts), 'utf-8');
+
+      console.log(`data terinput`);
+      rl.close();
+   });
 });
