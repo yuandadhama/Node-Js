@@ -23,7 +23,7 @@ yargs.command({
    handler(argv) {
       const contact = {
          nama: argv.nama,
-         email:argv.email,
+         email: argv.email,
          noHP: argv.noHP,
       };
       console.log(contact);
